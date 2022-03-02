@@ -2,7 +2,8 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
-
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
@@ -29,15 +30,29 @@ const CustomHeader = ({signOut, authState, navigation}) => {
       </Text>
       {authState.isAuthenticated && (
         <>
+        <TouchableOpacity 
+          style={{marginTop: 20, 
+          marginLeft: '7%'}}
+          onPress={() => navigation.navigate('Home')}>
+            <FontAwesome5 name="home" size={30} color="#ffa24a" />
+          </TouchableOpacity>
           <TouchableOpacity
             style={{
-              fontWeight: '400',
-              fontSize: 18,
-              alignSelf: 'center',
-              marginLeft: '24%',
+              marginTop: 20,
+              marginLeft: '7%',
             }}
             onPress={() => navigation.navigate('AddPost')}>
-            <Text style={{color: '#fcb851'}}>ADD POST</Text>
+            <MaterialIcons
+              name="add-photo-alternate"
+              size={32}
+              color="#ffa24a"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity 
+          style={{marginTop: 20, 
+          marginLeft: '7%'}}
+          onPress={() => navigation.navigate('User')}>
+            <FontAwesome5 name="user-circle" size={30} color="#ffa24a" />
           </TouchableOpacity>
           <TouchableOpacity
             style={{marginLeft: '8%', marginTop: 20}}

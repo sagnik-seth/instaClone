@@ -9,7 +9,6 @@ LogBox.ignoreLogs([
 ]);
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
-
 import {connect, useDispatch} from 'react-redux'
 
 import AddPost from './screens/AddPost'
@@ -17,6 +16,7 @@ import Signin from './screens/Signin'
 import Signup from './screens/Signup'
 import Home from './screens/Home'
 import CustomHeader from "./layout/CustomHeader"
+import User from './screens/User';
 
 import {SET_USER, IS_AUTHTHENTICATED} from './action/action.types'
 import database from '@react-native-firebase/database'
@@ -77,6 +77,7 @@ const App = ({authState}) => {
           <>
           <Stack.Screen name='Home' component={Home}/>
           <Stack.Screen name='AddPost' component={AddPost}/>
+          <Stack.Screen name='User' component={User}/>
           </>
         ) : (
           <>

@@ -69,19 +69,18 @@ const AddPost = ({navigation, userState}) => {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         console.log(response);
-      uploadImage(response);
-
+        uploadImage(response);
       }
     });
   };
 
-  const uploadImage = async (response) => {
+  const uploadImage = async response => {
     setImageUploading(true);
     const reference = storage().ref(response.assets[0].fileName);
     const task = reference.putFile(response.assets[0].uri);
-    task.on('state_changed', (taskSnopshot) => {
+    task.on('state_changed', taskSnopshot => {
       const percentage =
-        (taskSnopshot.bytesTransferred / taskSnopshot.totalBytes)
+        taskSnopshot.bytesTransferred / taskSnopshot.totalBytes;
       setUploadStatus(percentage);
     });
     task.then(async () => {
@@ -112,7 +111,7 @@ const AddPost = ({navigation, userState}) => {
         instaId: userState.instaUserName,
         userImage: userState.image,
         userBio: userState.bio,
-        id: uid
+        id: uid,
       });
       console.log('POST ADDED');
       navigation.navigate('Home');
@@ -131,57 +130,64 @@ const AddPost = ({navigation, userState}) => {
         <Center w="100%">
           <Box safeArea p="2" w="90%" py="8">
             <VStack space={5} mt="4">
-            <Image
-                  source={{uri: image}}
-                  style={{width: null, height: 150, marginVertical: 15}}
-                  resizeMode="center"
-                />
+              <Image
+                source={{uri: image}}
+                style={{width: null, height: 150, marginVertical: 15}}
+                resizeMode="center"
+              />
               {imageUploading ? (
                 <ProgressBar progress={uploadStatus} style={styles.progress} />
               ) : (
                 <>
-                  <TouchableOpacity key={1} onPress={chooseImage}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        borderColor: '#ffffff',
-                        borderWidth: 1,
-                        justifyContent: 'center',
-                      }}>
-                      <FontAwesome
-                        style={{padding: 10}}
-                        name="photo"
-                        size={30}
-                        color="#fcb851"
-                      />
-                      <Text style={{color: '#fcb851', alignSelf: 'center'}}>
-                        {' '}
-                        Choose Image
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity key={2} onPress={TakePhoto}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        borderColor: '#ffffff',
-                        borderWidth: 1,
-                        justifyContent: 'center',
-                      }}>
-                      <Entypo
-                        style={{padding: 10}}
-                        name="camera"
-                        size={30}
-                        color="#fcb851"
-                      />
-                      <Text style={{color: '#fcb851', alignSelf: 'center'}}>
-                        {' '}
-                        Click a Photo
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
+                  {image ? (
+                    <>
+                    <Text style={{color: 'white', alignSelf: 'center'}} key={3}>Image Is Ready To Uploaded</Text>
+                    </>
+                  ) : (
+                    <>
+                    <TouchableOpacity key={2} onPress={TakePhoto}>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          borderColor: '#ffffff',
+                          borderWidth: 1,
+                          justifyContent: 'center',
+                        }}>
+                        <Entypo
+                          style={{padding: 10}}
+                          name="camera"
+                          size={30}
+                          color="#fcb851"
+                        />
+                        <Text style={{color: '#fcb851', alignSelf: 'center'}}>
+                          {' '}
+                          Click a Photo
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity key={1} onPress={chooseImage}>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          borderColor: '#ffffff',
+                          borderWidth: 1,
+                          justifyContent: 'center',
+                        }}>
+                        <FontAwesome
+                          style={{padding: 10}}
+                          name="photo"
+                          size={30}
+                          color="#fcb851"
+                        />
+                        <Text style={{color: '#fcb851', alignSelf: 'center'}}>
+                          {' '}
+                          Choose Image
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                    </>
+                  )}
                 </>
-                
               )}
 
               <FormControl>
@@ -226,7 +232,7 @@ const styles = StyleSheet.create({
   progress: {width: null, marginBottom: 20},
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   userState: state.auth.user,
 });
 

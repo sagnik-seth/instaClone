@@ -77,7 +77,7 @@ const SignIn = ({navigation, signIn}) => {
                 padding={4}
                 colorScheme="indigo"
                 onPress={doSignin}>
-                SignUp
+                Login
               </Button>
               <TouchableOpacity
             onPress={() => navigation.navigate('SignUp')}

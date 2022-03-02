@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Text, View, StyleSheet, SafeAreaView, FlatList, ListViewComponent } from 'react-native';
 import {Center, Container,} from 'native-base'
 
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 //redux 
 import {connect} from 'react-redux'
@@ -10,7 +11,7 @@ import propTypes from 'prop-types'
 
 import EmptyContainer from '../components/EmptyContainer'
 import Post from '../components/Post'
-
+import AddPost from './AddPost';
 const  Home = ({getPost, postState, userDetails}) =>  {
   useEffect(() => {
    getPost()
@@ -19,6 +20,8 @@ const  Home = ({getPost, postState, userDetails}) =>  {
   if (postState.loading) {
     return <EmptyContainer/>
   }
+const Tab = createMaterialBottomTabNavigator();
+
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
